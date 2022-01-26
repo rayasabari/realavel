@@ -1,7 +1,12 @@
 import axios from 'axios';
 import React, { useState } from 'react';
+import { useNavigate } from 'react-router-dom';
+import { useRecoilState } from 'recoil';
+import { authentication } from '../../store';
 
 function Login() {
+  const navigate = useNavigate();
+  const [auth, setAuth] = useRecoilState(authentication);
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
   const form = {
@@ -11,11 +16,14 @@ function Login() {
   const submit = async (e) => {
     e.preventDefault();
     try {
-      let response = await axios.post('http://api.realavel.test/api/login', form);
-      console.log(response.data);
+      let response = await axios.post('/login', form);
+      localStorage.setItem('userToken', response.data.token);
+      setAuth({ check: true });
+      console.log(auth);
+      navigate('/');
     } catch (e) {
-      console.log(e.response.data.errors);
-      setErrors(e.response.data.errors);
+      setErrors(e.response.data);
+      setAuth({ check: false });
     }
   }
   return (

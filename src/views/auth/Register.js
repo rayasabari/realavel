@@ -13,7 +13,7 @@ function Register() {
   const submit = async (e) => {
     e.preventDefault();
     try {
-      let response = await axios.post('http://api.realavel.test/api/register', formData);
+      let response = await axios.post('/register', formData);
       console.log(response.data);
     } catch (e) {
       setErrors(e.response.data.errors);

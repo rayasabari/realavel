@@ -4,10 +4,16 @@ import App from './App';
 import 'bootstrap';
 import 'bootstrap/dist/css/bootstrap.css';
 import reportWebVitals from './reportWebVitals';
+import axios from 'axios';
+import { RecoilRoot } from 'recoil';
+
+axios.defaults.baseURL = 'http://api.realavel.test/api';
 
 ReactDOM.render(
   <StrictMode>
-    <App />
+    <RecoilRoot>
+      <App />
+    </RecoilRoot>
   </StrictMode>,
   document.getElementById('root')
 );
