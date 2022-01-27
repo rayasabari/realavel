@@ -10,24 +10,18 @@ function App() {
   const [mounted, setMounted] = useState(false);
   const getUser = async () => {
     try {
-      let response = await axios.get('/me', {
-        headers: {
-          'Authorization': `Bearer ${localStorage.getItem('userToken')}`
-        }
-      })
+      let response = await axios.get('/me')
       setAuth({
         check: true,
         user: response.data.data
       })
     } catch (e) {
-      console.log(e.response.data);
       setAuth({
         check: false,
         user: []
       })
     }
     setMounted(true);
-
   }
 
   useEffect(() => {

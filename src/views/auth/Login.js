@@ -18,17 +18,16 @@ function Login() {
     try {
       let response = await axios.post('/login', form);
       localStorage.setItem('userToken', response.data.token);
-      setAuth({ check: true });
-      console.log(auth);
-      navigate('/');
+      setAuth({ check: true, user: response.data.data });
+      navigate('/dashboard');
     } catch (e) {
-      setErrors(e.response.data);
       setAuth({ check: false });
+      setErrors(e.response.data.errors)
     }
   }
   return (
     <div className="container">
-      <div className="row">
+      <div className="row d-flex justify-content-center">
         <div className="col-md-4">
           <div className="card">
             <div className="card-header">Login</div>

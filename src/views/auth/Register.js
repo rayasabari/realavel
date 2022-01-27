@@ -1,5 +1,7 @@
 import axios from 'axios';
+import Notiflix from 'notiflix';
 import React, { useState } from 'react';
+import { useNavigate } from 'react-router-dom';
 
 function Register() {
   const [name, setName] = useState('');
@@ -10,17 +12,19 @@ function Register() {
     name, email, password, password_confirmation
   }
   const [errors, setErrors] = useState([]);
+  const navigate = useNavigate();
   const submit = async (e) => {
     e.preventDefault();
     try {
       let response = await axios.post('/register', formData);
-      console.log(response.data);
+      navigate('/login');
+      Notiflix.Report.success('Congratulations!', `${response.data.message} You can login now!`)
     } catch (e) {
       setErrors(e.response.data.errors);
     }
   }
   return <div className='container'>
-    <div className="row">
+    <div className="row d-flex justify-content-center">
       <div className='col-md-4'>
         <div className="card">
           <div className="card-header">

@@ -8,6 +8,10 @@ import axios from 'axios';
 import { RecoilRoot } from 'recoil';
 
 axios.defaults.baseURL = 'http://api.realavel.test/api';
+axios.interceptors.request.use((config) => {
+  config.headers.Authorization = `Bearer ${localStorage.getItem('userToken')}`
+  return config;
+})
 
 ReactDOM.render(
   <StrictMode>
